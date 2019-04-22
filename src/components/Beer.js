@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 export default class Beer extends Component {
   constructor(props) {
@@ -14,7 +13,6 @@ export default class Beer extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.location.state.item);
     this.setState({
       data: this.props.location.state.item,
       loading: false,
@@ -78,7 +76,6 @@ export default class Beer extends Component {
           </div>
           <Link
             style={{ textDecoration: "none" }}
-            // to={"/"}
             to={{
               pathname: "/",
               state: { landing: this.state.memory }

@@ -25,21 +25,6 @@ export default class BeersList extends Component {
     }
   }
 
-  listClicked(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    let myItem;
-    let myId = e.currentTarget.getAttribute("beer-id");
-    const myData = this.state.data;
-    myData.forEach(ele => {
-      if (ele.id === myId) {
-        return (myItem = ele);
-      }
-    });
-    console.log(myItem);
-    console.log(myId);
-  }
-
   prevPage() {
     if (this.state.page >= 2) {
       const page = this.state.page - 1;
@@ -57,14 +42,11 @@ export default class BeersList extends Component {
     this.setState({ loading: true });
     const incomingPage = page;
     try {
-      console.log(this.state.page);
       const results = await axios.get(
         `http://localhost:4000/beers?page=${page}`
       );
-      console.log(results);
       const info = results.data.info;
       const data = results.data.data;
-      //   const page = results.data.info.currentPage;
       this.setState({ info, data, page: incomingPage, loading: false });
     } catch (err) {
       return console.log(err);
@@ -90,10 +72,6 @@ export default class BeersList extends Component {
         borderRadius: "50px",
         display: "inline-block",
         border: "none"
-      },
-      hover: {
-        textShadow: "0px 0px 6px rgba(255, 255, 255, 1)",
-        transition: "all 0.4s ease 0s"
       }
     };
     const loading = this.state.loading;
@@ -128,12 +106,7 @@ export default class BeersList extends Component {
           <ul style={styles.ul}>
             {this.state.data.map(item => {
               return (
-                <li
-                  onClick={this.listClicked.bind(this)}
-                  style={styles.li}
-                  key={item.id}
-                  beer-id={item.id}
-                >
+                <li style={styles.li} key={item.id} beer-id={item.id}>
                   <Link
                     style={{ textDecoration: "none", color: "inherit" }}
                     to={{
