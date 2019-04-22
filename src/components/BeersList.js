@@ -17,12 +17,12 @@ export default class BeersList extends Component {
   }
 
   async componentWillMount() {
-      if(this.props.location.state.landing){
-        console.log(this.props.location.state.landing)
-        this.setState(this.props.location.state.landing)
-      }else{
-        await this.fetchResults(this.state.page);
-      }
+    if (this.props.location.state) {
+      console.log(this.props.location.state.landing);
+      this.setState(this.props.location.state.landing);
+    } else {
+      await this.fetchResults(this.state.page);
+    }
   }
 
   listClicked(e) {
